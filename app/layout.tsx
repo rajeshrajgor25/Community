@@ -1,24 +1,24 @@
-import type React from "react"
+import type { ReactNode } from "react"
 import type { Metadata } from "next"
-import { Geist, Geist_Mono } from "next/font/google"
+import { Inter, Roboto_Mono } from "next/font/google"
 import "./globals.css"
 import Navigation from "@/components/navigation"
 import Footer from "@/components/footer"
 import { AuthProvider } from "@/lib/auth-context"
 
-const geistSans = Geist({ subsets: ["latin"] })
-const geistMono = Geist_Mono({ subsets: ["latin"] })
+const geistSans = Inter({ subsets: ["latin"] })
+const geistMono = Roboto_Mono({ subsets: ["latin"] })
 
 export const metadata: Metadata = {
   title: "CommunityHere - College Event Management",
   description: "Discover events, join polls, track leaderboards, and manage recruitments",
-    generator: 'v0.app'
+  generator: "v0.app",
 }
 
 export default function RootLayout({
   children,
 }: {
-  children: React.ReactNode
+  children: ReactNode
 }) {
   return (
     <html lang="en">
