@@ -5,9 +5,12 @@ if (!process.env.MONGODB_URI) {
 }
 
 const uri = process.env.MONGODB_URI
-const options = {}
+const options = {
+  serverSelectionTimeoutMS: 5000, // Timeout after 5s instead of 30s
+  socketTimeoutMS: 45000, // Close sockets after 45s of inactivity
+}
 
-let client
+let client: MongoClient
 let clientPromise: Promise<MongoClient>
 
 if (process.env.NODE_ENV === "development") {
@@ -17,9 +20,12 @@ if (process.env.NODE_ENV === "development") {
 
   if (!globalWithMongo._mongoClientPromise) {
     client = new MongoClient(uri, options)
-    globalWithMongo._mongoClientPromise = client.connect()
+    globalWithMongo._mongoClientPromise = client.connect().catch((error) => {
+      console.error("MongoDB connection error:", error)
+      throw error
+    })
   }
-  clientPromise = globalWithMongo._mongoClientPromise
+  clientPromise = globalWithMongo._mongoClientPromise!
 } else {
   client = new MongoClient(uri, options)
   clientPromise = client.connect()

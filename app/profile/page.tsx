@@ -70,6 +70,12 @@ export default function ProfilePage() {
                   <Calendar size={18} />
                   <span>Joined {new Date(user.joinedDate).toLocaleDateString()}</span>
                 </div>
+                {user.sessionId && (
+                  <div className="flex items-center gap-2 text-gray-600 md:col-span-2">
+                    <span className="font-semibold">Session ID:</span>
+                    <span className="font-mono text-sm bg-gray-100 px-3 py-1 rounded border">{user.sessionId}</span>
+                  </div>
+                )}
               </div>
 
               <button

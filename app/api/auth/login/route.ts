@@ -11,7 +11,7 @@ export async function POST(request: NextRequest) {
     }
 
     const client = await clientPromise
-    const db = client.db("communityhere")
+    const db = client.db("CommunityHere")
     const usersCollection = db.collection("users")
 
     const user = await usersCollection.findOne({ email })

@@ -15,8 +15,25 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: "Password must be at least 6 characters" }, { status: 400 })
     }
 
-    const client = await clientPromise
-    const db = client.db("communityhere")
+    // Check MongoDB connection
+    if (!process.env.MONGODB_URI) {
+      console.error("MONGODB_URI is not set in environment variables")
+      return NextResponse.json({ error: "Database configuration error. Please contact administrator." }, { status: 500 })
+    }
+
+    let client
+    try {
+      client = await clientPromise
+    } catch (connectionError: any) {
+      console.error("MongoDB connection error:", connectionError)
+      return NextResponse.json({ 
+        error: process.env.NODE_ENV === "development" 
+          ? `Database connection failed: ${connectionError.message}` 
+          : "Database connection failed. Please check your MongoDB connection." 
+      }, { status: 500 })
+    }
+
+    const db = client.db("CommunityHere")
     const usersCollection = db.collection("users")
 
     // Check if user already exists
@@ -47,8 +64,12 @@ export async function POST(request: NextRequest) {
       },
       { status: 201 },
     )
-  } catch (error) {
+  } catch (error: any) {
     console.error("Signup error:", error)
-    return NextResponse.json({ error: "Internal server error" }, { status: 500 })
+    // Return more detailed error message in development
+    const errorMessage = process.env.NODE_ENV === "development" 
+      ? error.message || "Internal server error"
+      : "Internal server error"
+    return NextResponse.json({ error: errorMessage }, { status: 500 })
   }
 }

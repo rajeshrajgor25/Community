@@ -1,0 +1,10 @@
+var R=require("../../../../chunks/[turbopack]_runtime.js")("server/app/api/auth/[...nextauth]/route.js")
+R.c("server/chunks/35013_next_c2d323b4._.js")
+R.c("server/chunks/66635_next-auth_c69abd2c._.js")
+R.c("server/chunks/27d71_openid-client_6f038248._.js")
+R.c("server/chunks/6ffb0_jose_dist_node_cjs_6bdbed96._.js")
+R.c("server/chunks/348aa__pnpm_d1a64453._.js")
+R.c("server/chunks/[root-of-the-server]__c62ff248._.js")
+R.c("server/chunks/25508__next-internal_server_app_api_auth_[___nextauth]_route_actions_57b1dfeb.js")
+R.m("[project]/Google Drive/It-Vedant/ComunityHere/Community/node_modules/.pnpm/next@16.0.0_react-dom@19.2.0_react@19.2.0__react@19.2.0/node_modules/next/dist/esm/build/templates/app-route.js { INNER_APP_ROUTE => \"[project]/Google Drive/It-Vedant/ComunityHere/Community/app/api/auth/[...nextauth]/route.ts [app-route] (ecmascript)\" } [app-route] (ecmascript)")
+module.exports=R.m("[project]/Google Drive/It-Vedant/ComunityHere/Community/node_modules/.pnpm/next@16.0.0_react-dom@19.2.0_react@19.2.0__react@19.2.0/node_modules/next/dist/esm/build/templates/app-route.js { INNER_APP_ROUTE => \"[project]/Google Drive/It-Vedant/ComunityHere/Community/app/api/auth/[...nextauth]/route.ts [app-route] (ecmascript)\" } [app-route] (ecmascript)").exports

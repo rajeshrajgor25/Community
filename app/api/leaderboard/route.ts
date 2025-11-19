@@ -4,7 +4,7 @@ import clientPromise from "@/lib/mongodb"
 export async function GET(request: NextRequest) {
   try {
     const client = await clientPromise
-    const db = client.db("communityhere")
+    const db = client.db("CommunityHere")
     const leaderboardCollection = db.collection("leaderboard")
 
     const leaderboard = await leaderboardCollection.find({}).sort({ score: -1 }).toArray()

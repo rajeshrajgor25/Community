@@ -30,21 +30,7 @@ export default function ThreadDetailPage({ params }: { params: { id: string } })
     )
   }
 
-  if (!user) {
-    return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center px-4">
-        <div className="text-center">
-          <h1 className="text-3xl font-bold text-gray-900 mb-4">Sign in to view discussions</h1>
-          <Link
-            href="/login"
-            className="gradient-primary text-white px-8 py-3 rounded-lg font-semibold hover:shadow-lg transition-shadow inline-block"
-          >
-            Sign In
-          </Link>
-        </div>
-      </div>
-    )
-  }
+  // Discussions are now viewable without login, but replies require login
 
   const handleReply = (e: React.FormEvent) => {
     e.preventDefault()
@@ -120,34 +106,46 @@ export default function ThreadDetailPage({ params }: { params: { id: string } })
         <div className="space-y-6">
           <h2 className="text-2xl font-bold text-gray-900">{thread.replies.length} Replies</h2>
 
-          {/* Reply Form */}
-          <form onSubmit={handleReply} className="bg-white rounded-xl card-shadow p-6">
-            <div className="flex gap-4 mb-4">
-              <img
-                src={user.avatar || "/placeholder.svg"}
-                alt={user.name}
-                className="w-10 h-10 rounded-full flex-shrink-0"
-              />
-              <div className="flex-1">
-                <p className="font-semibold text-gray-900">{user.name}</p>
-                <p className="text-sm text-gray-500">{user.college}</p>
+          {/* Reply Form - Only show if user is logged in */}
+          {user ? (
+            <form onSubmit={handleReply} className="bg-white rounded-xl card-shadow p-6">
+              <div className="flex gap-4 mb-4">
+                <img
+                  src={user.avatar || "/placeholder.svg"}
+                  alt={user.name}
+                  className="w-10 h-10 rounded-full flex-shrink-0"
+                />
+                <div className="flex-1">
+                  <p className="font-semibold text-gray-900">{user.name}</p>
+                  <p className="text-sm text-gray-500">{user.college}</p>
+                </div>
               </div>
+              <textarea
+                value={replyText}
+                onChange={(e) => setReplyText(e.target.value)}
+                placeholder="Share your thoughts..."
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-500 resize-none"
+                rows={4}
+              />
+              <button
+                type="submit"
+                disabled={!replyText.trim()}
+                className="mt-4 gradient-primary text-white px-6 py-2 rounded-lg font-semibold hover:shadow-lg transition-shadow disabled:opacity-50"
+              >
+                Post Reply
+              </button>
+            </form>
+          ) : (
+            <div className="bg-white rounded-xl card-shadow p-6 text-center">
+              <p className="text-gray-600 mb-4">Sign in to reply to this discussion</p>
+              <Link
+                href="/login"
+                className="inline-block gradient-primary text-white px-6 py-2 rounded-lg font-semibold hover:shadow-lg transition-shadow"
+              >
+                Sign In
+              </Link>
             </div>
-            <textarea
-              value={replyText}
-              onChange={(e) => setReplyText(e.target.value)}
-              placeholder="Share your thoughts..."
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-500 resize-none"
-              rows={4}
-            />
-            <button
-              type="submit"
-              disabled={!replyText.trim()}
-              className="mt-4 gradient-primary text-white px-6 py-2 rounded-lg font-semibold hover:shadow-lg transition-shadow disabled:opacity-50"
-            >
-              Post Reply
-            </button>
-          </form>
+          )}
 
           {/* Replies List */}
           {thread.replies.length === 0 ? (

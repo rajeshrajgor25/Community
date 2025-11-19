@@ -76,6 +76,10 @@ export default function AdminDashboard() {
             <div className="text-right">
               <p className="text-sm text-gray-600">Logged in as</p>
               <p className="font-semibold text-gray-900">{user.name}</p>
+              <p className="text-xs text-gray-500 mt-1">ID: {user.id}</p>
+              {user.sessionId && (
+                <p className="text-xs text-gray-500 font-mono">Session: {user.sessionId}</p>
+              )}
             </div>
           </div>
         </div>

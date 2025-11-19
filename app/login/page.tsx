@@ -1,7 +1,7 @@
 "use client"
 
 import { useState } from "react"
-import { signIn } from "next-auth/react"
+import { signIn, getSession } from "next-auth/react"
 import { useRouter } from 'next/navigation'
 import Link from "next/link"
 import { colleges } from "@/lib/mockData"
@@ -39,6 +39,17 @@ export default function LoginPage() {
         return
       }
 
+      // Wait for session to be established and refresh
+      await new Promise((resolve) => setTimeout(resolve, 200))
+      
+      // Force session refresh if available
+      if (typeof window !== "undefined" && (window as any).__refreshAuthSession) {
+        await (window as any).__refreshAuthSession()
+      } else {
+        await getSession()
+      }
+      
+      router.refresh()
       router.push("/discussions")
     } catch (err) {
       setError("Login failed. Please try again.")

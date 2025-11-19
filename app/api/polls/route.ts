@@ -4,7 +4,7 @@ import clientPromise from "@/lib/mongodb"
 export async function GET(request: NextRequest) {
   try {
     const client = await clientPromise
-    const db = client.db("communityhere")
+    const db = client.db("CommunityHere")
     const pollsCollection = db.collection("polls")
 
     const polls = await pollsCollection.find({}).toArray()
@@ -21,7 +21,7 @@ export async function POST(request: NextRequest) {
     const pollData = await request.json()
 
     const client = await clientPromise
-    const db = client.db("communityhere")
+    const db = client.db("CommunityHere")
     const pollsCollection = db.collection("polls")
 
     const result = await pollsCollection.insertOne({

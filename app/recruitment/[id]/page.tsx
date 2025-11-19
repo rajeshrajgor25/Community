@@ -5,7 +5,7 @@ import Link from "next/link"
 import { recruitments } from "@/lib/mockData"
 import { ArrowLeft, Briefcase, Calendar, CheckCircle, Clock } from "lucide-react"
 import { useAuth } from "@/lib/auth-context"
-import { useRouter } from "next/router"
+import { useRouter } from "next/navigation"
 import { dataStore } from "@/lib/data-store"
 
 export default function RecruitmentDetailPage({ params }: { params: { id: string } }) {

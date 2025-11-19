@@ -29,23 +29,6 @@ export default function DiscussionsPage() {
     })
   }, [searchQuery, selectedCategory, selectedCollege])
 
-  if (!user) {
-    return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center px-4">
-        <div className="text-center">
-          <h1 className="text-3xl font-bold text-gray-900 mb-4">Sign in to join discussions</h1>
-          <p className="text-gray-600 mb-8">Connect with your college community and share ideas</p>
-          <Link
-            href="/login"
-            className="gradient-primary text-white px-8 py-3 rounded-lg font-semibold hover:shadow-lg transition-shadow inline-block"
-          >
-            Sign In
-          </Link>
-        </div>
-      </div>
-    )
-  }
-
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Header */}
@@ -56,12 +39,21 @@ export default function DiscussionsPage() {
               <h1 className="text-4xl font-bold text-white mb-2">Community Discussions</h1>
               <p className="text-teal-100">Connect, share ideas, and learn from your peers</p>
             </div>
-            <Link
-              href="/discussions/create"
-              className="bg-white text-teal-600 px-6 py-2 rounded-lg font-semibold hover:bg-gray-100 transition-colors inline-block text-center"
-            >
-              Start Discussion
-            </Link>
+            {user ? (
+              <Link
+                href="/discussions/create"
+                className="bg-white text-teal-600 px-6 py-2 rounded-lg font-semibold hover:bg-gray-100 transition-colors inline-block text-center"
+              >
+                Start Discussion
+              </Link>
+            ) : (
+              <Link
+                href="/login"
+                className="bg-white text-teal-600 px-6 py-2 rounded-lg font-semibold hover:bg-gray-100 transition-colors inline-block text-center"
+              >
+                Sign In to Start Discussion
+              </Link>
+            )}
           </div>
         </div>
       </section>

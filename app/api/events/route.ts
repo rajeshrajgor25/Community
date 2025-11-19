@@ -5,7 +5,7 @@ import { ObjectId } from "mongodb"
 export async function GET(request: NextRequest) {
   try {
     const client = await clientPromise
-    const db = client.db("communityhere")
+    const db = client.db("CommunityHere")
     const eventsCollection = db.collection("events")
 
     const events = await eventsCollection.find({}).toArray()
@@ -22,7 +22,7 @@ export async function POST(request: NextRequest) {
     const eventData = await request.json()
 
     const client = await clientPromise
-    const db = client.db("communityhere")
+    const db = client.db("CommunityHere")
     const eventsCollection = db.collection("events")
 
     const result = await eventsCollection.insertOne({

@@ -4,8 +4,7 @@ import { Geist, Geist_Mono } from 'next/font/google'
 import "./globals.css"
 import Navigation from "@/components/navigation"
 import Footer from "@/components/footer"
-import { AuthProvider } from "@/lib/auth-context"
-import { SessionProvider } from "next-auth/react"
+import { Providers } from "@/components/providers"
 
 const geistSans = Geist({ subsets: ["latin"] })
 const geistMono = Geist_Mono({ subsets: ["latin"] })
@@ -13,7 +12,7 @@ const geistMono = Geist_Mono({ subsets: ["latin"] })
 export const metadata: Metadata = {
   title: "CommunityHere - College Event Management",
   description: "Discover events, join polls, track leaderboards, and manage recruitments",
-    generator: 'v0.app'
+  generator: 'v0.app'
 }
 
 export default function RootLayout({
@@ -24,13 +23,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${geistSans.className} flex flex-col min-h-screen`}>
-        <SessionProvider>
-          <AuthProvider>
-            <Navigation />
-            <main className="flex-1">{children}</main>
-            <Footer />
-          </AuthProvider>
-        </SessionProvider>
+        <Providers>
+          <Navigation />
+          <main className="flex-1">{children}</main>
+          <Footer />
+        </Providers>
       </body>
     </html>
   )
